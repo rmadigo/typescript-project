@@ -1,0 +1,69 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+
+# TypeScript
+dist/
+build/
+*.tsbuildinfo
+
+# Output de testes
+coverage/
+test-results/
+
+# Arquivos de logs
+*.log
+
+# IDEs e editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+
+# Cache de ferramentas
+.cache/
+.nyc_output/
+jest-cache/
+jest-output/
+tmp/
+temp/
+
+# Arquivos temporários comuns
+*.swp
+*.bak
+*.tmp
+*.orig
+
+# Arquivos de debug
+debug.log
+
+# VS Code launch configs
+.vscode/launch.json
+.vscode/settings.json
+
+# PM2 process files
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Mac system files
+.AppleDouble
+.LSOverride
+
+# Optional TypeScript tooling
+tsconfig.tsbuildinfo
