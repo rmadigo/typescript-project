@@ -1,4 +1,5 @@
 import Order from "../../domain/entity/order";
+import OrderItem from "../../domain/entity/order_item";
 import OrderRepositoryInterface from "../../domain/repository/order-repository.interface";
 import RepositoryInterface from "../../domain/repository/repositry-interface";
 import OrderItemModel from "../db/sequelize/model/order-item.model";
@@ -6,6 +7,9 @@ import OrderModel from "../db/sequelize/model/order.model";
 
 export default class OrderRepository implements OrderRepositoryInterface {
   async create(entity: Order): Promise<void> {
+    if (entity.items.length === 0) {
+      throw new Error("Error: Order must have at least one item");
+    }
     await OrderModel.create(
       {
         id: entity.id,
@@ -24,6 +28,10 @@ export default class OrderRepository implements OrderRepositoryInterface {
   }
 
   async update(entity: Order): Promise<void> {
+    if (entity.items.length === 0) {
+      throw new Error("Error: Order must have at least one item");
+    }
+    // 1. Atualizar a ordem
     await OrderModel.update(
       {
         customer_id: entity.customerId,
@@ -34,28 +42,52 @@ export default class OrderRepository implements OrderRepositoryInterface {
       }
     );
 
+    // 2. Remover itens antigos
     await OrderItemModel.destroy({
       where: { order_id: entity.id },
     });
 
-    // 3. Criar os novos itens um a um
-    for (const item of entity.items) {
-      await OrderItemModel.create({
-        id: item.id,
-        name: item.name,
-        price: item.price,
-        quantity: item.quantity,
-        product_id: item.productId,
-        order_id: entity.id,
-      });
-    }
+    // 3. Adicionar itens novos
+    const items = entity.items.map((item) => ({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity,
+      product_id: item.productId,
+      order_id: entity.id,
+    }));
+
+    await OrderItemModel.bulkCreate(items);
   }
 
   async findOne(id: string): Promise<Order> {
-    throw new Error("Method not implemented.");
+    let orderModel;
+    try {
+      orderModel = await OrderModel.findOne({
+        where: { id },
+        include: ["items"],
+        rejectOnEmpty: true,
+      });
+    } catch (error) {
+      throw new Error("Order not found");
+    }
+
+    const items = orderModel.items.map((item) => new OrderItem(item.id, item.name, item.product_id, item.price, item.quantity));
+
+    const order = new Order(orderModel.id, orderModel.customer_id, items);
+
+    return order;
   }
 
   async findAll(): Promise<Order[]> {
-    throw new Error("Method not implemented.");
+    const orders = await OrderModel.findAll({ include: ["items"] });
+    return orders.map(
+      (order) =>
+        new Order(
+          order.id,
+          order.customer_id,
+          order.items.map((item) => new OrderItem(item.id, item.name, item.product_id, item.price, item.quantity))
+        )
+    );
   }
 }

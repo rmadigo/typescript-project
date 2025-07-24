@@ -32,4 +32,11 @@ describe("OrderItem unit tests", () => {
     }).toThrow("ProductId is required");
   });
 
+  it("should change quantity", () => {
+    const orderItem = new OrderItem("1", "Item 1", "1", 10, 2);
+    expect(orderItem.quantity).toBe(2);
+    orderItem.changeQuantity(3);
+    expect(orderItem.quantity).toBe(3);
+  });
+
 });

@@ -27,7 +27,7 @@ export default class ProductRepository implements ProductRepositoryInterface {
   }
 
   async findOne(id: string): Promise<any> {
-    const product = await ProductModel.findOne({ where: { id: id } });
+    const product = await ProductModel.findOne({ where: { id } });
     return product;
   }
 
