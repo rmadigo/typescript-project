@@ -52,23 +52,4 @@ describe("Domain event tests", () => {
 
     expect(spyEventHandler).toHaveBeenCalled();
   });
-
-  //   it("Should notify eventsss", () => {
-  //     const eventDispatcher = new EventDispatcher();
-  //     const eventHandler = new SendEmailWhenProductItCreatedHandler();
-  //     const spyEventHandler = jest.spyOn(eventHandler, "handle");
-
-  //     eventDispatcher.register("ProductCreatedEvent", eventHandler);
-
-  //     expect(eventDispatcher.getEventHandlers["ProductCreatedEvent"][0]).toMatchObject(eventHandler);
-
-  //     const productCreatedEvent = new ProductCreatedEvents({
-  //       name: "Product 1",
-  //       price: 100,
-  //     });
-
-  //     eventDispatcher.notify(productCreatedEvent);
-
-  //     expect(spyEventHandler).toHaveBeenCalled();
-  //   });
 });
