@@ -6,8 +6,8 @@ import OrderService from "./order.service";
 describe("Order service unit tests", () => {
   it("should place an order", () => {
     const customer = new Customer("1", "Fulano");
-    const item1 = new OrderItem("1", "Item 1", "10", 2, 10);
-    const item2 = new OrderItem("2", "Item 2", "1", 20, 1);
+    const item1 = new OrderItem("1", "Item 1", "2", 10, 2);
+    const item2 = new OrderItem("2", "Item 2", "2", 20, 1);
     const order = OrderService.placeOrder(customer, [item1, item2]);
     expect(customer.rewardPoints).toBe(20);
     expect(order.total()).toBe(40);
