@@ -1,17 +1,16 @@
 import { Sequelize } from "sequelize-typescript";
-import Address from "../../domain/entity/address";
-import Customer from "../../domain/entity/customer";
-import Order from "../../domain/entity/order";
-import OrderItem from "../../domain/entity/order_item";
-import Product from "../../domain/entity/product";
-import CustomerModel from "../db/sequelize/model/customer.model";
-import OrderItemModel from "../db/sequelize/model/order-item.model";
-import OrderModel from "../db/sequelize/model/order.model";
-import ProductModel from "../db/sequelize/model/product.model";
-import CustomerRepository from "./customer.repository";
+import Address from "../../../domain/entity/address";
+import Customer from "../../../domain/entity/customer";
+import Order from "../../../domain/entity/order";
+import OrderItem from "../../../domain/entity/order_item";
+import Product from "../../../domain/entity/product";
+import CustomerRepository from "../../customer/repository/customer.repository";
+import CustomerModel from "../../customer/repository/sequelize/customer.model";
+import OrderItemModel from "./sequelize/order-item.model";
+import OrderModel from "./sequelize/order.model";
+import ProductModel from "../../product/repository/sequelize/product.model";
 import OrderRepository from "./order.repository";
-import ProductRepository from "./product.repository";
-import { or } from "sequelize";
+import ProductRepository from "../../product/repository/product.repository";
 
 describe("Order repository unit tests", () => {
   let sequelize: Sequelize;
@@ -230,6 +229,5 @@ describe("Order repository unit tests", () => {
 
     expect(orders).toContainEqual(order1);
     expect(orders).toContainEqual(order2);
-      
-    })
+  });
 });

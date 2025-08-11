@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
-import ProductModel from "../db/sequelize/model/product.model";
-import Product from "../../domain/entity/product";
+import ProductModel from "./sequelize/product.model";
+import Product from "../../../domain/entity/product";
 import ProductRepository from "./product.repository";
 
 describe("Product repository unit tests", () => {
@@ -84,7 +84,7 @@ describe("Product repository unit tests", () => {
       id: "1",
       name: "Product 1",
       price: 10,
-    }); 
+    });
 
     const productModel2 = await productRepository.findOne("2");
     expect(productModel2.toJSON()).toStrictEqual({
@@ -92,6 +92,5 @@ describe("Product repository unit tests", () => {
       name: "Product 2",
       price: 20,
     });
-
   });
 });

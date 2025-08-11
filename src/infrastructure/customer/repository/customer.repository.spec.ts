@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize-typescript";
-import CustomerModel from "../db/sequelize/model/customer.model";
-import Customer from "../../domain/entity/customer";
+import CustomerModel from "./sequelize/customer.model";
+import Customer from "../../../domain/entity/customer";
 import CustomerRepository from "./customer.repository";
-import Address from "../../domain/entity/address";
+import Address from "../../../domain/entity/address";
 describe("Customer repository unit tests", () => {
   let sequelize: Sequelize;
 
@@ -107,6 +107,5 @@ describe("Customer repository unit tests", () => {
     expect(customers).toContainEqual(customer1);
     expect(customers).toContainEqual(customer2);
     expect(customers).toContainEqual(customer3);
-
   });
 });
