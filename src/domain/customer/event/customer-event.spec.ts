@@ -1,6 +1,6 @@
-import Address from "../../entity/address";
-import Customer from "../../entity/customer";
-import EventDispatcher from "../_shared/event-dispatcher";
+import EventDispatcher from "../../_shared/event/event-dispatcher";
+import Customer from "../entity/customer";
+import Address from "../value-object/address";
 import CustomerChangedAddressEvent from "./customer-changed-address.event";
 import CustomerCreatedEvents from "./customer-created.events";
 import ConsoleLogOneHandler from "./handler/console-log-one.hadler";
@@ -64,7 +64,7 @@ describe("Customer event tests", () => {
 
     eventDispatcher.register("CustomerChangedAddressEvent", eventHandler);
     const customerChangedAddressEvent = new CustomerChangedAddressEvent(customer);
-    
+
     eventDispatcher.notify(customerChangedAddressEvent);
     expect(spyEventHandler).toHaveBeenCalled();
   });
