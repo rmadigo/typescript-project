@@ -1,3 +1,4 @@
+import CustomerCreatedEvents from "../customer/customer-created.events";
 import EventHandlerInterface from "./event-handler.interface";
 import EventInterface from "./event.interface";
 
